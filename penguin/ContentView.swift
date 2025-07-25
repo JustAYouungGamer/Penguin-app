@@ -1,24 +1,29 @@
-//
-//  ContentView.swift
-//  penguin
-//
-//  Created by Lim Bo En Edmund on 4/6/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @Binding var windowCount: Int
+    @Environment(\.openWindow) private var openWindow
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Image("FatPenguin")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .onTapGesture {
+                    let newWindows = windowCount
+                    for _ in 0..<newWindows {
+                        openWindow(id: "PenguinWindow")
+                    }
+                    windowCount *= 2
+                }
+
+            Text("penguin")
         }
         .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(windowCount: .constant(1))
 }
